@@ -120,4 +120,6 @@ if (isset($_SESSION["username"])) {
        </div>
     </div>
   </body>
+      <script src="main.js"></script>
+
 </html>

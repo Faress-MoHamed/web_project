@@ -5,7 +5,6 @@ require_once __DIR__ . "/db/auth.php"; // Adjust the path as needed
 
 // Start session
 session_start();
-echo stripos($_SERVER['REQUEST_URI'], "/index.php");
 if ($_SERVER['REQUEST_URI'] == "/web_project/index.php" && !isset($_SESSION["username"])) {
     // Redirect to login if the user is already logged in
     header("Location: login.php");
@@ -64,10 +63,9 @@ if (isset($_POST['logout'])) {
             <span>3arbity</span>
         </a>
         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Pricing</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="cars.php">Cars</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
         <div class="hamburger">&#9776;</div>
@@ -157,7 +155,7 @@ if (isset($_SESSION["username"])) {
     </section>
 
     <!--cars-->
-    <section class="cars" id="cars">
+    <!-- <section class="cars" id="cars">
       <div class="heading">
         <span>All Cars</span>
         <h2>We have all types of cars</h2>
@@ -167,40 +165,74 @@ if (isset($_SESSION["username"])) {
 
         </p>
       </div>
-      <!-- cars containters -->
-      <div class="cars-container container">
+       cars containters -->
+      <!-- <div class="cars-container container"> -->
         <!-- box1 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car1.jpg" alt="" />
           <h2>porche car</h2>
-        </div>
+        </div> -->
         <!-- box2 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car2.jpg" alt="" />
           <h2>audi car</h2>
-        </div>
+        </div> -->
         <!-- box3 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car3.jpg" alt="" />
           <h2>audi car</h2>
-        </div>
+        </div> -->
         <!-- box4 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car4.jpg" alt="" />
           <h2>audi car</h2>
-        </div>
+        </div> -->
         <!-- box5 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car5.jpg" alt="" />
           <h2>audi car</h2>
-        </div>
+        </div> -->
         <!-- box6 -->
-        <div class="box">
+        <!-- <div class="box">
           <img src="img/car6.jpg" alt="" />
           <h2>dodge car</h2>
         </div>
       </div>
-    </section>
+    </section>  -->
+
+
+    <!-- Cars Section -->
+<section class="cars" id="cars">
+  <div class="heading">
+    <span>All Cars</span>
+    <h2>We have all types of cars</h2>
+    <p>
+      Select your preferred color and explore different versions from this brand.
+    </p>
+  </div>
+  <!-- Cars Container -->
+  <div class="cars-container container">
+    <?php
+    // Include the database connection
+    require_once __DIR__ . "/db/carsFetch.php";
+
+    // Fetch only 4 cars from the database
+    $result = GetCarsWithLimit(4);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="box">';
+            echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" />';
+            echo '<h2>' . htmlspecialchars($row["car_name"]) . '</h2>';
+            echo '</div>';
+        }
+    } else {
+        echo "<p>No cars available.</p>";
+    }
+    ?>
+  </div>
+</section>
+
 
     <!-- about -->
     <section class="about container" id="about">

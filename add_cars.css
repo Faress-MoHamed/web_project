@@ -138,3 +138,11 @@ button {
 button:hover {
 	background-color: #ef233c;
 }
+#car-color{
+	cursor: pointer;
+	border: 0;
+	padding: 5px;
+	width: 130px;
+	height: 65px;
+	background-color: transparent;
+}
