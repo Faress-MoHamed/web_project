@@ -4,6 +4,11 @@ require_once __DIR__ . "/db/auth.php"; // Adjust the path as needed
 
 // Start session
 session_start();
+
+// Check if logout button is clicked
+if (isset($_POST['logout'])) {
+    logout(); // Call the logout function from auth.php
+}
 if (stripos($_SERVER['REQUEST_URI'], "/admin.php") !== false &&
     (strtolower($_SESSION["role"]) !== "admin")) {
     header("Location: index.php");

@@ -1,6 +1,15 @@
 <?php
 require_once __DIR__ . "/db/carsFetch.php";
 session_start();
+require_once __DIR__ . "/db/auth.php"; // Adjust the path as needed
+
+
+
+
+// Check if logout button is clicked
+if (isset($_POST['logout'])) {
+    logout(); // Call the logout function from auth.php
+}
 $result = getAllCars();
 
 ?>
@@ -79,7 +88,7 @@ $result = getAllCars();
     </style>
 </head>
 <body>
-  <nav>
+<nav>
     <div class="nav-container">
         <a href="#" class="logo">
             <button class="logo-btn">F</button>

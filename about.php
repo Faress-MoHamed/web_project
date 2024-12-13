@@ -1,5 +1,14 @@
 <?php 
 session_start();
+require_once __DIR__ . "/db/auth.php"; // Adjust the path as needed
+
+
+
+
+// Check if logout button is clicked
+if (isset($_POST['logout'])) {
+    logout(); // Call the logout function from auth.php
+}
 ?>
 
 <!DOCTYPE html>
