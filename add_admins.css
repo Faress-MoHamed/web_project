@@ -1,5 +1,5 @@
 /* General Styles */
-body {
+.layout {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -7,26 +7,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Navbar */
-.navbar {
-  width: 100%;
-  background-color: #333;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-content {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
 }
 
 .admin-user {
