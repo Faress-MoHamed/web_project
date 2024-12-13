@@ -1,0 +1,55 @@
+/* Variables */
+:root {
+	--main-color: #d90429;
+	--text-color: #020120;
+	--bg-color: #fff;
+	--hover-color: #ef233c;
+	--hover-bg: #8d99ae;
+}
+
+/* Reset styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.layout {
+	background-color: var(--bg-color);
+	background-image: url("img/back.jpg"); /* You can add your own background image */
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container {
+	display: flex;
+	gap: 20px;
+}
+a {
+	text-decoration: none; /* Removes underline */
+}
+
+.box {
+	width: 300px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--bg-color);
+	font-size: 24px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.admin {
+	background-color: var(--main-color);
+}
+
+/* Hover effect for the boxes */
+.box:hover {
+	background-color: var(--text-color);
+}
