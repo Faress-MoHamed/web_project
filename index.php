@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <title>Home-page</title>
     <link rel="icon" href="img/icon.jpg">
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=1.0" />
 
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -47,9 +47,48 @@ if (isset($_POST['logout'])) {
           padding: 0.5rem 1rem;
       }
 
+      .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.7);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+}
+
+.container-image:hover .overlay {
+    height: 100%;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
       /* Hover effect for the button */
       .signout:hover {
           background-color: #f0f0f0;
+      }
+      .see_more{
+        color: red;
+        font-size: 20px;
+        width: 250px;
+        height: 420px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
         .container {
@@ -61,11 +100,13 @@ if (isset($_POST['logout'])) {
         }
         .car-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, minmax(300px, 1fr));
             gap: 20px;
             padding: 20px;
+            position: relative;
         }
         .car-card {
+          position: relative;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -141,7 +182,7 @@ if (isset($_POST['logout'])) {
           Find the perfect car for you. At Car Point, we offer a wide range of cars, from new to used,<br> all in one place. Whether you're buying or selling, we make the process quick and easy.<br> Start browsing today and discover great deals!
         </p>
         <!--home button-->
-        <a href="#cars" class="btn">Discover Now</a>
+        <a href="cars.php" class="btn">Discover Now</a>
       </div>
     </section>
 
@@ -208,12 +249,15 @@ if (isset($_POST['logout'])) {
     require_once __DIR__ . "/db/carsFetch.php";
 
     // Fetch only 4 cars from the database
-    $result = GetCarsWithLimit(4);
+    $result = GetCarsWithLimit(3);
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 echo '<div class="car-card">';
+                echo '<div class"container-image">';
+                echo '<div class="overlay"><div class="text">See More</div></div>';
                 echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" class="car-image">';
+                echo '</div>';
                 echo '<div class="car-info">';
                 echo '<div class="car-name">' . htmlspecialchars($row["car_name"]) . '</div>';
                 echo '<div class="car-details">';
@@ -229,6 +273,10 @@ if (isset($_POST['logout'])) {
             echo "No cars found";
         }
     ?>
+
+        <a href="cars.php" class="see_more">
+          See More
+      </a>
   </div>
 </section>
 

@@ -208,9 +208,12 @@ header {
 }
 
 .cars-container {
-	display: flex;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(300px, 1fr));
+            gap: 20px;
+	/* display: flex;
 	flex-wrap: wrap;
-	gap: 2rem;
+	gap: 2rem; */
 	margin-top: 2rem;
 }
 .cars-container .box {
