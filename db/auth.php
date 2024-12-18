@@ -1,22 +1,39 @@
 <?php 
 require_once __DIR__ . "/connection.php";
 
-function SignNewUser($name, $email ,$phone,$password ,$pin_code , $role){
-        $conn = dataBase_connect();
-        $stmt = mysqli_prepare($conn, "SELECT Email FROM users WHERE Email=?");
-        mysqli_stmt_bind_param($stmt, "s", $email);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if(mysqli_num_rows($result) > 0) {
-            echo "Email already exists"; 
-            header('location:login.php');
-            exit();
-        }
+function SignNewUser($name, $email, $phone, $password,  $role, $pin_code) {
+    // Connect to the database
+    $conn = dataBase_connect();
 
-  $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, pass, Phone, Role, pin_code) VALUES (?, ?, ?, ?, ?, ?)");
+    // Check if email already exists
+    $stmt = mysqli_prepare($conn, "SELECT Email FROM users WHERE Email=?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if (mysqli_num_rows($result) > 0) {
+        echo "Email already exists";
+        header('Location: login.php');
+        exit();
+    }
 
-  mysqli_stmt_bind_param($stmt,"ssssss",$name, $email ,$password ,$phone,$pin_code , $role);
-  mysqli_stmt_execute($stmt);
+    // Insert new user
+    $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, pass, Phone, Role, pin_code) VALUES (?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssssss", $name, $email, $password, $phone, $role, $pin_code);
+
+    if (mysqli_stmt_execute($stmt)) {
+        // Start a session and assign values
+        session_start();
+        $_SESSION['username'] = $name;
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $role;
+
+        // Redirect to a dashboard or home page
+        header("Location: index.php");
+        exit();
+    } else {
+        // Handle query error
+        echo "Error: " . mysqli_error($conn);
+    }
 }
 
 

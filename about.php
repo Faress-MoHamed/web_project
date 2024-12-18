@@ -169,7 +169,7 @@ if (isset($_POST['logout'])) {
             <h2>About Our Car Gallery</h2>
             <p>Welcome to LuxeDrive Gallery, where automotive dreams come to life. We are passionate about curating the finest collection of classic, luxury, and performance vehicles from around the world.</p>
             <div class="grid two-columns">
-                <img src="https://via.placeholder.com/600x400" alt="LuxeDrive Gallery Showroom">
+                <img src="./img/about.jpg" alt="LuxeDrive Gallery Showroom">
                 <div>
                     <h3>Our Mission</h3>
                     <p>At LuxeDrive Gallery, we strive to preserve automotive history while showcasing the pinnacle of engineering and design. Our mission is to provide car enthusiasts with an immersive experience that celebrates the artistry and innovation of the automotive industry.</p>

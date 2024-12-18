@@ -1,63 +1,25 @@
 <?php
-require_once __DIR__. "/db/auth.php";
-if(isset($_POST["signUp_btn"])){
-    $name = $_POST['username'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $pin_code = $_POST['pincode'];
+require_once __DIR__ . "/db/auth.php";
+$notification = ""; // Variable to store PHP validation result
+
+if (isset($_POST["signUp_btn"])) {
+    // Get form inputs
+    $name = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $password = trim($_POST['password']);
+    $pincode = trim($_POST['pincode']);
     $role = 'user';
-    
-    SignNewUser($name, $email ,$phone,$password ,$pin_code , $role);
-    echo "user inserted";
-}
-?>
-<?php 
 
-// function signup(){
-//     if(isset($_POST['btn'])){
-//         $name = $_POST['username'];
-//         $email = $_POST['email'];
-//         $phone = $_POST['phone'];
-//         $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
-//         $pin_code = $_POST['pincode'];
-//         $role = 'user'; // Assign a variable for 'user'
+    // Server-side validation
 
-//         // Establish database connection
-//         $con = mysqli_connect("localhost", "root", "", "webbbbbb", 4306);
-//         if(!$con) {
-//             die("Connection failed: " . mysqli_connect_error());
-//         }
+        // Hash password
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-//         // Check if email exists
-//         $stmt = mysqli_prepare($con, "SELECT Email FROM users WHERE Email=?");
-//         mysqli_stmt_bind_param($stmt, "s", $email);
-//         mysqli_stmt_execute($stmt);
-//         $result = mysqli_stmt_get_result($stmt);
-//         if(mysqli_num_rows($result) > 0) {
-//             echo "Email already exists"; 
-//             header('location:login.php');
-//             exit();
-//         }
-
-//         // Insert data using prepared statement
-//         $stmt = mysqli_prepare($con, "INSERT INTO users (Username, Email, pass, Phone, Role, pin_code) VALUES (?, ?, ?, ?, ?, ?)");
-//         mysqli_stmt_bind_param($stmt, "ssssss", $name, $email, $password, $phone, $role, $pin_code);
-//         mysqli_stmt_execute($stmt);
-//          $user  =mysqli_stmt_get_result($stmt);
-//         if (!mysqli_stmt_execute($stmt)) {
-//             die("Error: " . mysqli_error($con));
-//         }
-//         echo $user;
-//         $_SESSION["user"]=$user;
-//         // Redirect to index
-//         header('location:index.php');
-//         exit();
-//     }
-// }
-
-
-// signup(); // Call the signup function to handle form submissions
+        // Insert into the database
+        SignNewUser($name, $email, $phone, $hashed_password, $role, $pincode);
+        header("Location: index.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,23 +28,60 @@ if(isset($_POST["signUp_btn"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
     <link rel="stylesheet" href="signup.css">
+    <script>
+        function validateForm(event) {
+            // Get form values
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const pincode = document.getElementById("pincode").value.trim();
+
+            // Validate inputs
+            if (!username || !email || !phone || !password || !pincode) {
+                alert("All fields are required!");
+                event.preventDefault();
+                return false;
+            }
+            if (!/^\d{11}$/.test(phone)) {
+                alert("Phone number must be exactly 11 digits!");
+                event.preventDefault();
+                return false;
+            }
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long!");
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="left-bar">
             <div class="signup-form">
                 <h1>Sign Up</h1>
-                <form action="signup.php" method="post">
+                <?php if (!empty($notification)): ?>
+                    <script>
+                        alert("<?php echo $notification; ?>");
+                    </script>
+                <?php endif; ?>
+                <form action="signup.php" method="post" onsubmit="validateForm(event)">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required><br><br>
+
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required><br><br>
+
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" minlength="11" pattern="[0-9]{11,}" title="Please enter a valid phone number (only digits allowed)" required><br><br>
+                    <input type="tel" id="phone" name="phone" maxlength="11" pattern="\d{11}" title="Please enter a valid 11-digit phone number" required><br><br>
+
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" minlength="8" required><br><br>
+
                     <label for="pincode">PinCode:</label>
                     <input type="text" id="pincode" name="pincode" required><br><br>
+
                     <button type="submit" class="signup-btn" name="signUp_btn">Sign Up</button><br><br>
                     <span>Already have an account? <a href="login.php" class="login-link">Login</a></span>
                 </form>

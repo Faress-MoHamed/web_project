@@ -51,6 +51,69 @@ if (isset($_POST['logout'])) {
       .signout:hover {
           background-color: #f0f0f0;
       }
+
+        .container {
+          margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .car-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .car-info {
+            padding: 15px;
+        }
+        .car-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .color-container{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: black;
+        }
+        .car-color{
+          width: 50px;
+          height: 20px;
+          border-radius: 5px;
+        }
+        .car-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 10px;
+        }
+        .stock {
+            font-size: 0.9em;
+            color: #999;
+        }
     </style>
   </head>
 
@@ -147,16 +210,24 @@ if (isset($_POST['logout'])) {
     // Fetch only 4 cars from the database
     $result = GetCarsWithLimit(4);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo '<div class="box">';
-            echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" />';
-            echo '<h2>' . htmlspecialchars($row["car_name"]) . '</h2>';
-            echo '</div>';
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo '<div class="car-card">';
+                echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" class="car-image">';
+                echo '<div class="car-info">';
+                echo '<div class="car-name">' . htmlspecialchars($row["car_name"]) . '</div>';
+                echo '<div class="car-details">';
+                echo 'Color:<div class="color-container"> <div class="car-color" style="background:'.$row["color"].';"></div>'.htmlspecialchars($row["color"]).'</div> <br>';
+                echo 'Year: ' . htmlspecialchars($row["model_year"]);
+                echo '</div>';
+                echo '<div class="price">$' . number_format($row["price"], 2) . '</div>';
+                echo '<div class="stock">In stock: ' . htmlspecialchars($row["stock"]) . '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No cars found";
         }
-    } else {
-        echo "<p>No cars available.</p>";
-    }
     ?>
   </div>
 </section>
