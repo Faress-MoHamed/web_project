@@ -155,7 +155,7 @@ if (isset($_POST['logout'])) {
     </style>
 
 
-    <link rel="stylesheet" href="style.css?v0.1">
+    <link rel="stylesheet" href="style.css?v0.2">
 
 </head>
 <body>
@@ -242,7 +242,7 @@ if (isset($_POST['logout'])) {
             <a href="#" class="btn btn-secondary">Contact Us</a>
         </section>
     </main>
-    <script src="main.js"></script>
+    <script src="main.js?v0.2"></script>
 </body>
 
 </html>

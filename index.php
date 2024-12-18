@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <title>Home-page</title>
     <link rel="icon" href="img/icon.jpg">
 
-    <link rel="stylesheet" href="style.css?v=1.0" />
+    <link rel="stylesheet" href="style.css?v=2.0" />
 
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -57,6 +57,9 @@ if (isset($_POST['logout'])) {
     width: 100%;
     height: 0;
     transition: .5s ease;
+}
+.container-image{
+  position: relative;
 }
 
 .container-image:hover .overlay {
@@ -107,11 +110,11 @@ if (isset($_POST['logout'])) {
         }
         .car-card {
           position: relative;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transition: transform 0.3s ease;
         }
         .car-card:hover {
             transform: translateY(-5px);
@@ -253,21 +256,23 @@ if (isset($_POST['logout'])) {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo '<div class="car-card">';
-                echo '<div class"container-image">';
-                echo '<div class="overlay"><div class="text">See More</div></div>';
-                echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" class="car-image">';
-                echo '</div>';
-                echo '<div class="car-info">';
-                echo '<div class="car-name">' . htmlspecialchars($row["car_name"]) . '</div>';
-                echo '<div class="car-details">';
-                echo 'Color:<div class="color-container"> <div class="car-color" style="background:'.$row["color"].';"></div>'.htmlspecialchars($row["color"]).'</div> <br>';
-                echo 'Year: ' . htmlspecialchars($row["model_year"]);
-                echo '</div>';
-                echo '<div class="price">$' . number_format($row["price"], 2) . '</div>';
-                echo '<div class="stock">In stock: ' . htmlspecialchars($row["stock"]) . '</div>';
-                echo '</div>';
-                echo '</div>';
+echo '<div class="car-card">';
+echo '<div class="container-image">';
+echo '<div class="overlay"><div class="text">See More</div></div>';
+echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" class="car-image">';
+echo '</div>';
+echo '<div class="car-info">';
+echo '<div class="car-name">' . htmlspecialchars($row["car_name"]) . '</div>';
+echo '<div class="car-details">';
+echo 'Color:<div class="color-container"> <div class="car-color" style="background:' . $row["color"] . ';"></div>' . htmlspecialchars($row["color"]) . '</div><br>';
+echo 'Year: ' . htmlspecialchars($row["model_year"]);
+echo '</div>';
+echo '<div class="price">$' . number_format($row["price"], 2) . '</div>';
+echo '<div class="stock">In stock: ' . htmlspecialchars($row["stock"]) . '</div>';
+
+echo '</div>';
+echo '</div>';
+
             }
         } else {
             echo "No cars found";
@@ -472,5 +477,7 @@ if (isset($_POST['logout'])) {
 
     <!--link to js -->
     <script src="main.js"></script>
+
+
   </body>
 </html>

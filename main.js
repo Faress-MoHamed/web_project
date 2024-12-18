@@ -30,6 +30,14 @@ hamburger.addEventListener("click", () => {
   menu.classList.toggle("active");
 });
 
+const carBtn = document.querySelector("button#cart-btn");
+console.log(carBtn);
+const cartmenu = document.querySelector(".cart-dropdown");
+
+carBtn.addEventListener("click", () => {
+  console.log("clicked");
+  cartmenu.classList.toggle("active");
+});
 /// phone number
 document.getElementById("phone").addEventListener("input", function (e) {
   var phone = e.target.value;
@@ -37,3 +45,4 @@ document.getElementById("phone").addEventListener("input", function (e) {
   phone = phone.replace(/\D/g, "");
   e.target.value = phone;
 });
+

@@ -5,15 +5,46 @@ require_once __DIR__ . "/components/navBar.php"; // Adjust the path as needed
 
 session_start();
 
-
-
-
 // Check if logout button is clicked
 if (isset($_POST['logout'])) {
     logout(); // Call the logout function from auth.php
 }
-$result = getAllCars();
 
+// Initialize the cart if it's not set in the session
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+if (isset($_POST['add_to_cart'])) {
+    $carId = $_POST['car_id'];
+    $carName = $_POST['car_name'];
+    $carPrice = $_POST['car_price'];
+
+    // Check if the car is already in the cart
+    $found = false;
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['id'] == $carId) {
+            // Car is already in the cart, don't add quantity
+            $found = true;
+            break;
+        }
+    }
+
+    // If car is not found in the cart, add it
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'id' => $carId,
+            'name' => $carName,
+            'price' => $carPrice,
+        ];
+    }
+
+    // Redirect to the same page to update the cart
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+$result = getAllCars();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +52,7 @@ $result = getAllCars();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css?v0.1" />
+        <link rel="stylesheet" href="style.css?v0.2" />
 
     <title>My Car Collection</title>
     <style>
@@ -109,6 +140,15 @@ $result = getAllCars();
                 echo '</div>';
                 echo '<div class="price">$' . number_format($row["price"], 2) . '</div>';
                 echo '<div class="stock">In stock: ' . htmlspecialchars($row["stock"]) . '</div>';
+
+                // Add to cart form
+                echo '<form method="POST" action="">';
+                echo '<input type="hidden" name="car_id" value="' . $row["id"] . '">';
+                echo '<input type="hidden" name="car_name" value="' . htmlspecialchars($row["car_name"]) . '">';
+                echo '<input type="hidden" name="car_price" value="' . htmlspecialchars($row["price"]) . '">';
+                echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart</button>';
+                echo '</form>';
+
                 echo '</div>';
                 echo '</div>';
             }
@@ -118,6 +158,6 @@ $result = getAllCars();
         ?>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script src="main.js?v0.2"></script>
 </body>
 </html>
