@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <title>Home-page</title>
     <link rel="icon" href="img/icon.jpg">
 
-    <link rel="stylesheet" href="style.css?v=2.0" />
+    <link rel="stylesheet" href="style.css?v=3.1" />
 
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -47,7 +47,7 @@ if (isset($_POST['logout'])) {
           padding: 0.5rem 1rem;
       }
 
-      .overlay {
+    .overlay {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -188,54 +188,6 @@ if (isset($_POST['logout'])) {
         <a href="cars.php" class="btn">Discover Now</a>
       </div>
     </section>
-
-    <!--cars-->
-    <!-- <section class="cars" id="cars">
-      <div class="heading">
-        <span>All Cars</span>
-        <h2>We have all types of cars</h2>
-        <p>
-          Select your preferred color and explore different versions from this brand.
-
-
-        </p>
-      </div>
-       cars containters -->
-      <!-- <div class="cars-container container"> -->
-        <!-- box1 -->
-        <!-- <div class="box">
-          <img src="img/car1.jpg" alt="" />
-          <h2>porche car</h2>
-        </div> -->
-        <!-- box2 -->
-        <!-- <div class="box">
-          <img src="img/car2.jpg" alt="" />
-          <h2>audi car</h2>
-        </div> -->
-        <!-- box3 -->
-        <!-- <div class="box">
-          <img src="img/car3.jpg" alt="" />
-          <h2>audi car</h2>
-        </div> -->
-        <!-- box4 -->
-        <!-- <div class="box">
-          <img src="img/car4.jpg" alt="" />
-          <h2>audi car</h2>
-        </div> -->
-        <!-- box5 -->
-        <!-- <div class="box">
-          <img src="img/car5.jpg" alt="" />
-          <h2>audi car</h2>
-        </div> -->
-        <!-- box6 -->
-        <!-- <div class="box">
-          <img src="img/car6.jpg" alt="" />
-          <h2>dodge car</h2>
-        </div>
-      </div>
-    </section>  -->
-
-
     <!-- Cars Section -->
 <section class="cars" id="cars">
   <div class="heading">
@@ -253,7 +205,6 @@ if (isset($_POST['logout'])) {
 
     // Fetch only 4 cars from the database
     $result = GetCarsWithLimit(3);
-
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
 echo '<div class="car-card">';
@@ -302,7 +253,7 @@ echo '</div>';
 
           <!-- about buttons -->
         </p>
-        <a href="aboutusbutton.html" class="btn">Learn More</a>
+        <a href="about.php" class="btn">Learn More</a>
 
       </div>
     </section>
@@ -326,8 +277,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
         <!-- part1 -->
         <div class="box">
@@ -335,8 +284,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
         <!-- part1 -->
         <div class="box">
@@ -344,8 +291,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
         <!-- part1 -->
         <div class="box">
@@ -353,8 +298,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
         <!-- part1 -->
         <div class="box">
@@ -362,8 +305,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
         <!-- part1 -->
         <div class="box">
@@ -371,8 +312,6 @@ echo '</div>';
           <h3>Auto Spare Part</h3>
           <span>$120.99</span>
           <i class="bx bxs-star">(6 Reviews)</i>
-          <a href="#" class="btn">Buy now</a>
-          <a href="#" class="Details">view Details</a>
         </div>
       </div>
     </section>

@@ -52,7 +52,7 @@ $result = getAllCars();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css?v0.2" />
+        <link rel="stylesheet" href="style.css?v1.2" />
 
     <title>My Car Collection</title>
     <style>
@@ -146,7 +146,17 @@ $result = getAllCars();
                 echo '<input type="hidden" name="car_id" value="' . $row["id"] . '">';
                 echo '<input type="hidden" name="car_name" value="' . htmlspecialchars($row["car_name"]) . '">';
                 echo '<input type="hidden" name="car_price" value="' . htmlspecialchars($row["price"]) . '">';
-                echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart</button>';
+                echo '<button type="submit" name="add_to_cart" class="add-to-cart-btn" style="
+                margin-top:5px;
+                cursor:pointer;
+                border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: white;
+    background: #d90429;
+    border: 1px solid #d90429;
+    padding: 4px;">Add to Cart</button>';
                 echo '</form>';
 
                 echo '</div>';

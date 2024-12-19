@@ -4,8 +4,6 @@ require_once __DIR__ . "/db/auth.php"; // Adjust the path as needed
 require_once __DIR__ . "/components/navBar.php"; // Adjust the path as needed
 
 
-
-
 // Check if logout button is clicked
 if (isset($_POST['logout'])) {
     logout(); // Call the logout function from auth.php
@@ -82,7 +80,8 @@ if (isset($_POST['logout'])) {
             background-color: #cc0000;
         }
     </style>
-    <link rel="stylesheet" href="style.css?v0.2">
+
+    <link rel="stylesheet" href="style.css?v1.2">
 </head>
 <body>
       <?php

@@ -155,7 +155,7 @@ if (isset($_POST['logout'])) {
     </style>
 
 
-    <link rel="stylesheet" href="style.css?v0.2">
+    <link rel="stylesheet" href="style.css?v1.2">
 
 </head>
 <body>
@@ -214,33 +214,6 @@ if (isset($_POST['logout'])) {
             </div>
         </section>
 
-        <section>
-            <h2>Featured Exhibits</h2>
-            <div class="grid three-columns">
-                <div class="exhibit-card">
-                    <img src="https://via.placeholder.com/400x200?text=Classic+Elegance" alt="Classic Elegance">
-                    <h3>Classic Elegance</h3>
-                    <p>Step back in time with our collection of pristine vintage automobiles from the 1920s to 1960s.</p>
-                </div>
-                <div class="exhibit-card">
-                    <img src="https://via.placeholder.com/400x200?text=Supercar+Showcase" alt="Supercar Showcase">
-                    <h3>Supercar Showcase</h3>
-                    <p>Experience the pinnacle of automotive performance with our rotating display of modern supercars.</p>
-                </div>
-                <div class="exhibit-card">
-                    <img src="https://via.placeholder.com/400x200?text=Concept+Car+Corner" alt="Concept Car Corner">
-                    <h3>Concept Car Corner</h3>
-                    <p>Glimpse into the future of automotive design with our exhibit of groundbreaking concept vehicles.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="cta">
-            <h2>Ready to Experience Automotive Excellence?</h2>
-            <p>Visit LuxeDrive Gallery today and immerse yourself in the world of extraordinary vehicles.</p>
-            <a href="#" class="btn btn-primary">Plan Your Visit</a>
-            <a href="#" class="btn btn-secondary">Contact Us</a>
-        </section>
     </main>
     <script src="main.js?v0.2"></script>
 </body>

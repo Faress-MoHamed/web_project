@@ -99,8 +99,8 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Cars</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="add_cars.css">
+    <link rel="stylesheet" href="style.css?v=1.2">
+    <!-- <link rel="stylesheet" href="add_cars.css"> -->
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -111,16 +111,15 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 
     .layout {
         display: flex;
-        flex-wrap: wrap;
         margin: 20px;
         gap: 20px;
     }
 
     .car-cards {
+        flex: 2;
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        flex: 2;
     }
 
     .car-card {
@@ -129,7 +128,7 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        max-width: 300px;
+        width: calc(50% - 10px);
         text-align: center;
         transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -181,6 +180,7 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        align-self: flex-start;
     }
 
     #form-title {
@@ -228,6 +228,23 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 </head>
 <body>
 <?php renderNavbar($_SESSION); ?>
+<div class="layout">
+    <!-- Left Side: Car Cards -->
+    <div class="car-cards">
+        <?php foreach ($cars as $car): ?>
+            <div class="car-card">
+                <img src="<?= htmlspecialchars($car['car_photo']) ?>" alt="Car Image" width="100%">
+                <h3><?= htmlspecialchars($car['car_name']) ?></h3>
+                <p>Model Year: <?= htmlspecialchars($car['model_year']) ?></p>
+                <p>Color: <span style="background-color:<?= htmlspecialchars($car['color']) ?>;">&nbsp;&nbsp;&nbsp;</span></p>
+                <p>Price: $<?= htmlspecialchars($car['price']) ?></p>
+                <p>Stocks: <?= htmlspecialchars($car['stock']) ?></p>
+                <button onclick="editCar(<?= htmlspecialchars(json_encode($car)) ?>)">Edit</button>
+                <a href="?delete=<?= $car['id'] ?>" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
     <!-- Right Side: Form -->
     <div class="right-container">
         <h1 id="form-title">Add Car Details</h1>
@@ -254,24 +271,6 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
             <button type="submit">Save</button>
         </form>
     </div>
-<div class="layout">
-    <!-- Car Cards -->
-    <div class="car-cards">
-        <?php foreach ($cars as $car): ?>
-            <div class="car-card">
-                <img src="<?= htmlspecialchars($car['car_photo']) ?>" alt="Car Image" width="100%">
-                <h3><?= htmlspecialchars($car['car_name']) ?></h3>
-                <p>Model Year: <?= htmlspecialchars($car['model_year']) ?></p>
-                <p>Color: <span style="background-color:<?= htmlspecialchars($car['color']) ?>;">&nbsp;&nbsp;&nbsp;</span></p>
-                <p>Price: $<?= htmlspecialchars($car['price']) ?></p>
-                <p>Stocks: <?= htmlspecialchars($car['stock']) ?></p>
-                <button onclick="editCar(<?= htmlspecialchars(json_encode($car)) ?>)">Edit</button>
-                <a href="?delete=<?= $car['id'] ?>" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
-            </div>
-        <?php endforeach; ?>
-    </div>
-
-
 </div>
 
 <script>

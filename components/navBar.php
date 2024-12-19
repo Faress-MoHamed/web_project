@@ -17,15 +17,7 @@ function renderNavbar($sessionData) {
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
-
-    // Check if clear cart button was clicked
-    if (isset($_POST['clear_cart'])) {
-        $_SESSION['cart'] = []; // Clear the cart
-        // Redirect to the same page to update the cart state
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    }
-    ?>
+?>
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">
@@ -41,6 +33,7 @@ function renderNavbar($sessionData) {
             <div class="hamburger">&#9776;</div>
 
             <!-- Cart Icon -->
+            <?php if (isset($_SESSION["username"])): ?>
             <div class="cart-container">
                 <button id="cart-btn">
                     🛒
@@ -52,7 +45,7 @@ function renderNavbar($sessionData) {
                     <?php if ($cartItemCount > 0): ?>
                         <ul>
                             <?php foreach ($cartItems as $item): ?>
-                                <li style="margin-bottom: 0.5rem; border-bottom: 1px solid #ccc; padding-bottom: 0.5rem;">
+                                <li style="margin-bottom: 0.5rem; border-bottom:1px solid #ccc; display: flex; justify-content: space-between; padding: 10px 20px;">
                                     <span style="font-weight: bold;"><?php echo htmlspecialchars($item['name']); ?></span>
                                     <!-- Remove button for each item -->
                                     <form method="POST" action="" style="display:inline;">
@@ -61,18 +54,14 @@ function renderNavbar($sessionData) {
                                     </form>
                                 </li>
                             <?php endforeach; ?>
+                            <li style="text-align:center;padding: 10px 20px;"><a style="color: #d92727;" href="cart.php">Go to My Cart</a></li>
                         </ul>
                     <?php else: ?>
                         <p>Your cart is empty.</p>
                     <?php endif; ?>
-                    <!-- Clear Cart Button -->
-                    <?php if ($cartItemCount > 0): ?>
-                        <form method="POST" action="" style="margin-top: 10px;">
-                            <button type="submit" name="clear_cart" style="background: none; border: 1px solid #ccc; padding: 5px 10px; cursor: pointer;">Clear Cart</button>
-                        </form>
-                    <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
 
             <?php if (isset($sessionData['username'])): ?>
                 <div class="user-menu">
@@ -105,6 +94,6 @@ function renderNavbar($sessionData) {
             <?php endif; ?>
         </div>
     </nav>
-    <?php
-}
+<?php
+} // Closing brace for renderNavbar
 ?>

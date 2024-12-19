@@ -1,7 +1,7 @@
 <?php 
 require_once __DIR__ . "/connection.php";
 
-function SignNewUser($name, $email, $phone, $password,  $role, $pin_code) {
+function SignNewUser($name, $email, $phone, $password, $role, $pin_code) {
     // Connect to the database
     $conn = dataBase_connect();
 
@@ -11,9 +11,7 @@ function SignNewUser($name, $email, $phone, $password,  $role, $pin_code) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     if (mysqli_num_rows($result) > 0) {
-        echo "Email already exists";
-        header('Location: login.php');
-        exit();
+        return "Email already exists. Please use a different email or login.";
     }
 
     // Insert new user
@@ -27,15 +25,27 @@ function SignNewUser($name, $email, $phone, $password,  $role, $pin_code) {
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $role;
 
-        // Redirect to a dashboard or home page
-        header("Location: index.php");
-        exit();
+        return true;
     } else {
         // Handle query error
-        echo "Error: " . mysqli_error($conn);
+        return "Error: " . mysqli_error($conn);
     }
 }
-
+function generateToast($message, $type = 'info') {
+    $types = [
+        'success' => '#4CAF50',
+        'error' => '#F44336',
+        'warning' => '#FF9800',
+        'info' => '#2196F3'
+    ];
+    $color = $types[$type] ?? '#2196F3';
+    
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showToast('" . htmlspecialchars($message, ENT_QUOTES) . "', '$color');
+        });
+    </script>";
+}
 
 function loginUser($email, $password) {
     $conn = dataBase_connect();
