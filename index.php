@@ -174,18 +174,20 @@ if (isset($_POST['logout'])) {
     <!--Home-->
     <section class="home" id="home">
       <div class="home-text">
-        <h1>
+        <h1 style="text-align: left;">
           We Have Everything <br />
           Your <span>Car</span> Need
         </h1>
         <p>
          <span style="font-size:30px;">Welcome to Car Point!</span> 
          <br>
+        <span style="width: 600px;display:inline-block;color: black;margin:20px 0;">
 
-          Find the perfect car for you. At Car Point, we offer a wide range of cars, from new to used,<br> all in one place. Whether you're buying or selling, we make the process quick and easy.<br> Start browsing today and discover great deals!
+          Find the perfect car for you. At Car Point, we offer a wide range of cars, from new<br> all in one place. Whether you're buying or selling, we make the process quick.<br> Start browsing today and discover great deals!
+        </span>
         </p>
         <!--home button-->
-        <a href="cars.php" class="btn">Discover Now</a>
+        <a href="cars.php" style="border-radius: 7px;transition: 0.3s;" class="btn">Discover Now</a>
       </div>
     </section>
     <!-- Cars Section -->
@@ -209,7 +211,7 @@ if (isset($_POST['logout'])) {
             while($row = $result->fetch_assoc()) {
 echo '<div class="car-card">';
 echo '<div class="container-image">';
-echo '<div class="overlay"><div class="text">See More</div></div>';
+echo '<div class="overlay"><a href="details.php?id=' . $row['id'] . '"><div class="text">See More</div></a></div>';
 echo '<img src="' . htmlspecialchars($row["car_photo"]) . '" alt="' . htmlspecialchars($row["car_name"]) . '" class="car-image">';
 echo '</div>';
 echo '<div class="car-info">';

@@ -26,7 +26,7 @@ if (isset($_POST["signUp_btn"])) {
                     showToast('$notification', '#4CAF50');
                     setTimeout(function() {
                         window.location.href = 'index.php';
-                    }, 3000); // Redirect after 3 seconds
+                    }, 3000);
                 };
               </script>";
     } else {
