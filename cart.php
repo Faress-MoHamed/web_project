@@ -23,6 +23,7 @@ if (isset($_GET['clear'])) {
 // Check if the cart exists in the session
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "<p style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px;'>Your cart is empty.</p>";
+    echo "<p><a href='index.php' style='color: #007bff; text-decoration: none;'>Continue shopping</a></p>";
     exit;
 }
 
@@ -105,16 +106,14 @@ $conn = dataBase_connect();
     <link rel="stylesheet" href="style.css?v=3.1">
 </head>
 <body>
-        <?php
-   renderNavbar($_SESSION);
-?>
+    <?php
+    renderNavbar($_SESSION);
+    ?>
     <h2 style="margin-bottom: 20px;">Your Cart</h2>
-
 
     <table>
         <tr>
-          <!-- <th>Car ID</th> -->
-          <th>Photo</th>
+            <th>Photo</th>
             <th>Car Name</th>
             <th>Color</th>
             <th>Model Year</th>
@@ -141,15 +140,14 @@ $conn = dataBase_connect();
             if ($car = $result->fetch_assoc()) {
                 $total += $car['price'];
                 echo "<tr>
-                
-                <td><img src='{$car['car_photo']}' alt='{$car['car_name']}'></td>
-                        <td>{$car['car_name']}</td>
-                        <td>{$car['color']}</td>
-                        <td>{$car['model_year']}</td>
-                        <td>$" . number_format($car['price'], 2) . "</td>
-                        <td>{$car['stock']}</td>
-                        <td><a href='?remove={$car['id']}' style='color: red;'>Remove</a></td>
-                      </tr>";
+                    <td><img src='{$car['car_photo']}' alt='{$car['car_name']}'></td>
+                    <td>{$car['car_name']}</td>
+                    <td>{$car['color']}</td>
+                    <td>{$car['model_year']}</td>
+                    <td>$" . number_format($car['price'], 2) . "</td>
+                    <td>{$car['stock']}</td>
+                    <td><a href='?remove={$car['id']}' style='color: red;'>Remove</a></td>
+                </tr>";
             }
 
             // Close the statement for this iteration
@@ -160,6 +158,7 @@ $conn = dataBase_connect();
     <div class="total">Total: $<?php echo number_format($total, 2); ?></div>
     <div class="actions">
         <a href="?clear=true" class="clear">Clear Cart</a>
+        <a href="shopping_cart.php" class="clear">Checkout</a>
     </div>
 </body>
 </html>

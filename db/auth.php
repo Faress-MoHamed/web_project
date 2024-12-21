@@ -46,7 +46,6 @@ function generateToast($message, $type = 'info') {
         });
     </script>";
 }
-
 function loginUser($email, $password) {
     $conn = dataBase_connect();
 
@@ -63,7 +62,6 @@ function loginUser($email, $password) {
 
     // Debugging without affecting the result set
     $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    echo "Debugging Rows: " . json_encode($rows);
 
     // Check if a user is found
     if (count($rows) > 0) {
@@ -72,14 +70,13 @@ function loginUser($email, $password) {
         // Verify the hashed password
         if (password_verify($password, $user['pass'])) {
             // Start the session and store user data
-            session_start();
             $_SESSION['username'] = $user['Username'];
             $_SESSION['email'] = $user['Email'];
             $_SESSION['role'] = $user['Role'];
 
             // Redirect to a dashboard or home page
-            header("Location: index.php");
-            exit();
+            // header("Location: index.php");
+            // exit();
         } else {
             echo "Invalid password.";
         }
@@ -87,13 +84,12 @@ function loginUser($email, $password) {
         echo "User not found.";
     }
 
-    // Redirect back to the login page
-    header("Location: login.php");
-    exit();
-
     // Close the statement and connection
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+
+        return true;
+
 }
 
 function logout (){
@@ -151,4 +147,8 @@ function sendOtpEmail($email, $otp) {
 
     return mail($email, $subject, $message, $headers);
 }
+
+
+
+
 

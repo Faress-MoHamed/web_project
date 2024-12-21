@@ -150,4 +150,3 @@ if (isset($_POST["signUp_btn"])) {
     </div>
 </body>
 </html>
- 

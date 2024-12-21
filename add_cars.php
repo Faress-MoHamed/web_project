@@ -64,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("ssddii", $carName, $carColor, $modelYear, $price, $stocks, $carId);
         }
         $stmt->execute();
+        $notification = "Updated Car successfully";
+
     } else {
         // Add new car
         $query = "INSERT INTO cars (car_name, color, model_year, price, stock, car_photo) VALUES (?, ?, ?, ?, ?, ?)";
@@ -123,12 +125,17 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
     }
 
     .car-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         width: calc(50% - 10px);
+        max-height: 550px;
+        overflow-y: auto;
         text-align: center;
         transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -152,11 +159,12 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 
     .car-card button, .car-card a {
         display: inline-block;
+        width: 150px;
         margin: 10px 5px;
         padding: 8px 15px;
         font-size: 0.9em;
         color: #fff;
-        background: #007bff;
+        background: #d90429;
         border: none;
         border-radius: 4px;
         text-decoration: none;
@@ -165,9 +173,14 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
     }
 
     .car-card button:hover, .car-card a:hover {
-        background: #0056b3;
+        background: #d90429;
     }
-
+    .car-card .btns-container{
+        align-self: center;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+    }
     .car-card:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -204,14 +217,14 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
     }
 
     form button {
-        background: #28a745;
+        background: #d90429;
         color: #fff;
         cursor: pointer;
         transition: background 0.3s;
     }
 
     form button:hover {
-        background: #218838;
+        background: rgba(217, 4, 39, 0.53);
     }
 
     form input[type="file"] {
@@ -224,10 +237,79 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
         height: 30px;
     }
 </style>
+    <style>
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .toast {
+            padding: 15px 20px;
+            color: white;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+        <script>
+        function validateForm(event) {
+            // Get form values
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const pincode = document.getElementById("pincode").value.trim();
 
+            // Validate inputs
+            if (!username || !email || !phone || !password || !pincode) {
+                showToast("All fields are required!", "#F44336");
+                event.preventDefault();
+                return false;
+            }
+            if (!/^\d{11}$/.test(phone)) {
+                showToast("Phone number must be exactly 11 digits!", "#F44336");
+                event.preventDefault();
+                return false;
+            }
+            if (password.length < 8) {
+                showToast("Password must be at least 8 characters long!", "#F44336");
+                event.preventDefault();
+                return false;
+            }
+        }
+
+        function showToast(message, color) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.backgroundColor = color;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            // Trigger reflow
+            toast.offsetHeight;
+
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    container.removeChild(toast);
+                }, 400);
+            }, 3000);
+        }
+    </script>
 </head>
 <body>
 <?php renderNavbar($_SESSION); ?>
+        <div id="toast-container"></div>
+
 <div class="layout">
     <!-- Left Side: Car Cards -->
     <div class="car-cards">
@@ -239,8 +321,11 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
                 <p>Color: <span style="background-color:<?= htmlspecialchars($car['color']) ?>;">&nbsp;&nbsp;&nbsp;</span></p>
                 <p>Price: $<?= htmlspecialchars($car['price']) ?></p>
                 <p>Stocks: <?= htmlspecialchars($car['stock']) ?></p>
-                <button onclick="editCar(<?= htmlspecialchars(json_encode($car)) ?>)">Edit</button>
-                <a href="?delete=<?= $car['id'] ?>" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                <div class="btns-container">
+
+                    <button onclick="editCar(<?= htmlspecialchars(json_encode($car)) ?>)">Edit</button>
+                    <a href="?delete=<?= $car['id'] ?>" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
@@ -272,6 +357,7 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
         </form>
     </div>
 </div>
+    <script src="main.js"></script>
 
 <script>
     function editCar(car) {
@@ -287,3 +373,5 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 </script>
 </body>
 </html>
+
+
