@@ -5,6 +5,11 @@ require_once __DIR__ . "/components/navBar.php"; // Adjust the path as needed
 
 session_start();
 
+if (strpos($_SERVER['REQUEST_URI'], "/cars.php") && !isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Check if logout button is clicked
 if (isset($_POST['logout'])) {
     logout(); // Call the logout function from auth.php

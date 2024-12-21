@@ -4,6 +4,11 @@ require_once __DIR__ . '/db/auth.php';
 $message = '';
 $messageType = '';
 session_start();
+
+if (strpos($_SERVER['REQUEST_URI'], "/forgetPassword.php") && isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit();
+}
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['email'])) {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     

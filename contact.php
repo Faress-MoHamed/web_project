@@ -109,6 +109,12 @@ if (isset($_POST['logout'])) {
         button:hover {
             background-color: #cc0000;
         }
+        @media (max-width: 920px) {
+	.container{
+		flex-direction: column-reverse;
+        gap: 30px;
+	}
+}
     </style>
 
     <link rel="stylesheet" href="style.css?v1.2">

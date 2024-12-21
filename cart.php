@@ -160,6 +160,7 @@ $conn = dataBase_connect();
         <a href="?clear=true" class="clear">Clear Cart</a>
         <a href="shopping_cart.php" class="clear">Checkout</a>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>
 <?php

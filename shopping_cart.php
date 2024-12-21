@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (strpos($_SERVER['REQUEST_URI'], "/shopping_cart.php") && isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit();
+}
+
+
 $errors = [];
 $success = false;
 

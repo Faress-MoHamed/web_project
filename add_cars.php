@@ -101,8 +101,8 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Cars</title>
-    <link rel="stylesheet" href="style.css?v=1.2">
-    <!-- <link rel="stylesheet" href="add_cars.css"> -->
+    <link rel="stylesheet" href="style.css?v=5.4">
+    <!-- <link rel="stylesheet" href="add_cars.css?v=5.6"> -->
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -236,6 +236,15 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
         padding: 0;
         height: 30px;
     }
+
+    @media (max-width: 920px) {
+	.layout{
+		flex-direction: column-reverse;
+	}
+	.right-container{
+		width: 100%;
+	}
+}
 </style>
     <style>
         #toast-container {

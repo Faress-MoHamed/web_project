@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <title>Home-page</title>
     <link rel="icon" href="img/icon.jpg">
 
-    <link rel="stylesheet" href="style.css?v=3.1" />
+    <link rel="stylesheet" href="style.css?v=3.9" />
 
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -181,7 +181,7 @@ if (isset($_POST['logout'])) {
         <p>
          <span style="font-size:30px;">Welcome to Car Point!</span> 
          <br>
-        <span style="width: 600px;display:inline-block;color: black;margin:20px 0;">
+        <span style="width: 85%;display:inline-block;color: black;margin:20px 0;">
 
           Find the perfect car for you. At Car Point, we offer a wide range of cars, from new<br> all in one place. Whether you're buying or selling, we make the process quick.<br> Start browsing today and discover great deals!
         </span>

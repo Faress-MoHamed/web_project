@@ -148,5 +148,6 @@ if (isset($_POST["signUp_btn"])) {
             <img src="img/front-car-lights-night-road.jpg" alt="Car Photo">
         </div>
     </div>
+    
 </body>
 </html>

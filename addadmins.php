@@ -11,8 +11,6 @@ if(isset($_POST["AddAdmin_btn"])){
     $role = 'admin';
     // $name, $email ,$phone,$password , $role ="admin"
     AddAdmin($name, $email ,$phone,$password , $role);
-    echo "user inserted";
-
   }
 if (isset($_POST['logout'])) {
 logout();

@@ -216,6 +216,8 @@ header {
 	gap: 2rem; */
 	margin-top: 2rem;
 }
+@media (max-width: "720px") {
+}
 .cars-container .box {
 	flex: 1 1 17rem;
 	position: relative;
@@ -447,9 +449,15 @@ header {
 		font-size: 2.1rem;
 	}
 }
-@media (max-width: 920px) {
+@media (max-width: 1100px) {
+	.home {
+		background: #fff5f7;
+	}
 	#search-icon {
 		color: var(--text-color);
+	}
+	.cars-container {
+		grid-template-columns: repeat(1, minmax(300px, 1fr));
 	}
 }
 @media (max-width: 768px) {
@@ -730,4 +738,161 @@ div.cart-dropdown.active {
 
 .hamburger {
 	display: none;
+}
+
+/* RESPONSIVE STYLES */
+
+@media (max-width: 1080px) {
+	.container {
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+
+	.home-text {
+		padding-left: 2rem;
+	}
+
+	.home-text h1 {
+		font-size: 2.1rem;
+	}
+}
+
+@media (max-width: 991px) {
+	.nav {
+		padding: 15px 20px;
+	}
+
+	section {
+		padding: 3rem 0 1rem;
+	}
+
+	.auth-buttons .btn {
+		padding: 6px 12px;
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 920px) {
+	.navbar {
+		flex-direction: column;
+		text-align: center;
+		gap: 1rem;
+		background: var(--bg-color);
+		padding: 1rem;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	#menu-icon {
+		display: inline;
+	}
+
+	.auth-buttons {
+		flex-direction: column;
+	}
+
+	.auth-buttons a {
+		width: auto;
+		padding: 8px;
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.search-box {
+		padding: 15px;
+	}
+
+	.home {
+		min-height: 600px;
+		padding: 1rem;
+	}
+
+	.home-text h1 {
+		font-size: 1.8rem;
+	}
+
+	.navbar {
+		display: none;
+	}
+
+	.navbar.active {
+		display: flex;
+	}
+
+	.menu {
+		flex-direction: column;
+		background: var(--bg-color);
+		position: absolute;
+		width: 100%;
+		top: 50px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.menu li {
+		text-align: center;
+		padding: 10px 0;
+	}
+}
+
+@media (max-width: 727px) {
+	.heading span {
+		font-size: 0.9rem;
+	}
+
+	.heading h2 {
+		font-size: 1.4rem;
+	}
+
+	.about {
+		flex-direction: column-reverse;
+	}
+
+	.about-text {
+		text-align: center;
+		padding: 1rem;
+	}
+
+	.about-text h2 {
+		font-size: 1.4rem;
+	}
+
+	.footer-container {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.auth-buttons a {
+		font-size: 0.8rem;
+		padding: 6px 10px;
+	}
+
+	.menu li {
+		font-size: 0.9rem;
+	}
+
+	.part-container .box {
+		flex: 1 1 100%;
+	}
+
+	.blog-container .box {
+		flex: 1 1 100%;
+	}
+}
+
+@media (max-width: 360px) {
+	.home-text h1 {
+		font-size: 1.6rem;
+	}
+
+	.auth-buttons a {
+		padding: 5px 8px;
+		font-size: 0.7rem;
+	}
+
+	.search-box input {
+		padding: 10px;
+		font-size: 0.8rem;
+	}
 }

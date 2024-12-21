@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . "/db/connection.php";
 session_start();
+
+if (strpos($_SERVER['REQUEST_URI'], "/signOtp.php") && isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit();
+}
+
 $conn = dataBase_connect();
 
 $message = '';
