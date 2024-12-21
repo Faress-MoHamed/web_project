@@ -107,3 +107,48 @@ session_destroy();
 header("Location: login.php");
 exit();
 }
+
+
+function forgetPassword($email) {
+    // Connect to the database
+    $conn = dataBase_connect();
+
+    // Check if the email exists in the database
+    $stmt = mysqli_prepare($conn, "SELECT Email FROM users WHERE Email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Generate a 6-digit OTP
+        $otp = rand(100000, 999999);
+
+        // Update the OTP in the database
+        $stmt = mysqli_prepare($conn, "UPDATE users SET otp = ? WHERE Email = ?");
+        mysqli_stmt_bind_param($stmt, "is", $otp, $email);
+        if (mysqli_stmt_execute($stmt)) {
+            // Send OTP to email
+            if (sendOtpEmail($email, $otp)) {
+                return "OTP has been sent to your email.";
+            } else {
+                return "Failed to send OTP. Please try again.";
+            }
+        } else {
+            return "Error updating OTP: " . mysqli_error($conn);
+        }
+    } else {
+        return "Email not found. Please check and try again.";
+    }
+}
+
+function sendOtpEmail($email, $otp) {
+    // Use PHP's mail function or an external library like PHPMailer
+    $subject = "Password Reset OTP";
+    $message = "Your OTP for password reset is: " . $otp;
+    $headers = "From: fareess.mohameedd@gmail.com\r\n" .
+               "Reply-To: noreply@yourdomain.com\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    return mail($email, $subject, $message, $headers);
+}
+

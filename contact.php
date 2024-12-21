@@ -38,6 +38,9 @@ if (isset($_POST['logout'])) {
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             flex: 1;
         }
+        textarea{
+            resize: none;
+        }
         .image-space {
             flex: 1;
             margin-right: 20px;
@@ -89,7 +92,7 @@ if (isset($_POST['logout'])) {
 ?>
     <div class="container">
         <div class="image-space">
-            Space for Image
+            <img src="img/carcontactus.webp" alt="" srcset="">
         </div>
         <div class="contact-form">
             <h1>Contact Us</h1>
@@ -104,7 +107,7 @@ if (isset($_POST['logout'])) {
                 <input type="tel" id="phone" name="phone">
 
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
+                <textarea  id="message" name="message" rows="4" required></textarea>
 
                 <button type="submit">Send</button>
             </form>
